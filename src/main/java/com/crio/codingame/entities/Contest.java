@@ -1,4 +1,3 @@
-
 package com.crio.codingame.entities;
 
 import java.util.ArrayList;
@@ -27,8 +26,9 @@ public class Contest extends BaseEntity{
     public Contest(String name, List<Question> questions, Level level, User creator,
             ContestStatus contestStatus) {
         this.name = name;
-        this.questions = new ArrayList<>();
+        //this.questions = new ArrayList<>();
         validateQuestionList(questions, level);
+        this.questions=questions;
         this.level = level;
         this.creator = creator;
         this.contestStatus = contestStatus;
@@ -41,13 +41,12 @@ public class Contest extends BaseEntity{
     //  2. You can use "./gradlew build" to check if your code builds successfully.
 
     private void validateQuestionList(List<Question> qList, Level contestLevel) throws InvalidContestException {
-        for (Question question : qList) {
-            if(question.getLevel() != contestLevel) {
-                throw new InvalidContestException("Questions are not in the same level");
+        for(Question q:qList){
+            if(!q.getLevel().equals(contestLevel)){
+                throw new InvalidContestException("Invalid Contest");
             }
         }
     }
-
 
 
 
@@ -56,8 +55,9 @@ public class Contest extends BaseEntity{
     // Change the Contest Status to ENDED
 
     public void endContest(){
-        this.contestStatus = ContestStatus.ENDED;
+        this.contestStatus=ContestStatus.ENDED;
     }
+
     
     public String getName() {
         return name;
@@ -111,4 +111,3 @@ public class Contest extends BaseEntity{
     }
 
 }
-
